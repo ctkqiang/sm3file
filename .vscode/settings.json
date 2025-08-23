@@ -1,0 +1,23 @@
+{
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "__locale": "cpp",
+        "ios": "cpp",
+        "algorithm": "cpp",
+        "functional": "cpp",
+        "iterator": "cpp",
+        "crypto.h": "c",
+        "string.h": "c",
+        "stdlib.h": "c",
+        "__split_buffer": "c",
+        "bitset": "c",
+        "complex": "c",
+        "deque": "c",
+        "memory": "c",
+        "vector": "c",
+        "istream": "c",
+        "locale": "c",
+        "string": "c",
+        "sm3.h": "c"
+    }
+}
