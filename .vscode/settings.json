@@ -22,6 +22,7 @@
         "sm4.h": "c",
         "rand.h": "c",
         "__config": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "file_encryption.h": "c"
     }
 }
