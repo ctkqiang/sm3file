@@ -27,6 +27,8 @@
         "queue": "c",
         "stack": "c",
         "file_decryption.h": "c",
-        "error.h": "c"
+        "error.h": "c",
+        "ghash.h": "c",
+        "unistd.h": "c"
     }
 }

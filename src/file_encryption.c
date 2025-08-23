@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <gmssl/sm4.h>
+
 #include "../include/crypto.h"
 #include "../include/file_encryption.h"
-#include "../external/GmSSL/include/gmssl/sm4.h"
-
 
 int encrypt_file(const char *input_path, const char *password) {
     SM4_GCM_CTX ctx;

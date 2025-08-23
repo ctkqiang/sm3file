@@ -2,14 +2,16 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <unistd.h>
+
+#include <gmssl/sm4.h>
 
 #include "../include/crypto.h"
 #include "../include/file_decryption.h"
-#include "../external/GmSSL/include/gmssl/sm4.h"
 
 
 int decrypt_file(const char *input_path, const char *password) {
-    SM4_CFB_CTX ctx;
+    SM4_GCM_CTX ctx;
     char output_path[0x100];
 
     size_t bytes_read, final_len;
@@ -87,7 +89,7 @@ int decrypt_file(const char *input_path, const char *password) {
     }
 
     sm4_set_decrypt_key(&ctx, key);
-    sm4_cbc_encrypt_init(&ctx, iv);
+    sm4_cbc_encrypt_init(&ctx, key, iv);
 
     while ((bytes_read = fread(ciphertext, 1, sizeof(ciphertext), fin)) > 0x0) {
         size_t plaintext_len;
