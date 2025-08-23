@@ -18,6 +18,9 @@
         "istream": "c",
         "locale": "c",
         "string": "c",
-        "sm3.h": "c"
+        "sm3.h": "c",
+        "sm4.h": "c",
+        "rand.h": "c",
+        "__config": "c"
     }
 }
