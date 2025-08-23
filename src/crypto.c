@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "../include/crypto.h"
+#include "../external/GmSSL/include/gmssl/ghash.h"
 #include "../external/GmSSL/include/gmssl/sm3.h"
 #include "../external/GmSSL/include/gmssl/sm4.h"
 #include "../external/GmSSL/include/gmssl/rand.h"

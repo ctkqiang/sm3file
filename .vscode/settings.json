@@ -23,6 +23,10 @@
         "rand.h": "c",
         "__config": "c",
         "stdio.h": "c",
-        "file_encryption.h": "c"
+        "file_encryption.h": "c",
+        "queue": "c",
+        "stack": "c",
+        "file_decryption.h": "c",
+        "error.h": "c"
     }
 }
