@@ -11,7 +11,7 @@
 #include <gmssl/sm3.h>
 #include <gmssl/sm4.h>
 #include <gmssl/rand.h>
-
+#include <gmssl/pbkdf2.h> 
 
 int pbkdf2_sm3(const char *password, size_t password_len, const uint8_t *salt, size_t salt_len, uint8_t *key) {
     if (gmssl_pbkdf2_hmac_sm3(password, password_len, salt, salt_len, PBKDF2_ITERATION, SM4_KEY_LENGTH, key) != 0x1) {

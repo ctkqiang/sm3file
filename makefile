@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -O2 -Iinclude -Iexternal/GmSSL/include/gmssl
+CFLAGS = -Wall -Wextra -O2 -Iinclude -Iexternal/GmSSL/include
 DEBUGFLAGS = -g -DDEBUG
 LDFLAGS = -lgmssl
 
