@@ -1,51 +1,22 @@
-# Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -O2 -Iinclude -Iexternal/GmSSL/include
-DEBUGFLAGS = -g -DDEBUG
-LDFLAGS = -lgmssl
+CFLAGS = -Wall -Wextra -O2 -Iinclude -Iexternal/GmSSL/
+LDFLAGS = -Lexternal/GmSSL/ -lgmssl
 
-# Directories
-SRCDIR = src
-BINDIR = bin
-OBJDIR = obj
+SRCS = sm3file.c src/crypto.c src/file_encryption.c src/file_decryption.c
+OBJS = $(SRCS:%.c=obj/%.o)
+TARGET = bin/sm3file
 
-# Source files
-SRC = $(wildcard $(SRCDIR)/*.c)
-OBJ = $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+.PHONY: all clean
 
-# Target executable
-TARGET = $(BINDIR)/sm3file
+all: $(TARGET)
 
-# Default target
-all: directories $(TARGET)
+$(TARGET): $(OBJS)
+	@mkdir -p bin
+	$(CC) $(OBJS) -o $(TARGET) $(LDFLAGS)
 
-# Create necessary directories
-directories:
-	@mkdir -p $(BINDIR) $(OBJDIR)
-
-# Build target
-$(TARGET): $(OBJ)
-	$(CC) $(OBJ) -o $@ $(LDFLAGS)
-
-# Compile source files
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
+obj/%.o: %.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Debug build
-debug: CFLAGS += $(DEBUGFLAGS)
-debug: clean all
-
-# Clean build files
 clean:
-	@rm -rf $(BINDIR) $(OBJDIR)
-
-# Install target
-install: all
-	@mkdir -p $(DESTDIR)/usr/local/bin
-	@cp $(TARGET) $(DESTDIR)/usr/local/bin/
-
-# Uninstall target
-uninstall:
-	@rm -f $(DESTDIR)/usr/local/bin/sm3file
-
-.PHONY: all debug clean install uninstall directories
+	rm -rf obj bin

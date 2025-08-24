@@ -11,7 +11,7 @@
 
 
 int decrypt_file(const char *input_path, const char *password) {
-    SM4_GCM_CTX ctx;
+    SM4_CBC_CTX ctx;
     char output_path[0x100];
 
     size_t bytes_read, final_len;
@@ -88,13 +88,13 @@ int decrypt_file(const char *input_path, const char *password) {
         return -0x7;
     }
 
-    sm4_set_decrypt_key(&ctx, key);
+    sm4_set_decrypt_key(&ctx.sm4_key, key);
     sm4_cbc_encrypt_init(&ctx, key, iv);
 
     while ((bytes_read = fread(ciphertext, 1, sizeof(ciphertext), fin)) > 0x0) {
         size_t plaintext_len;
 
-        if (sm4_cbc_encrypt_update(&ctx, plaintext, &plaintext_len, ciphertext, bytes_read) != 0x1) {
+        if (sm4_cbc_decrypt_update(&ctx, ciphertext, bytes_read, plaintext, &plaintext_len) != 0x1) {
             fprintf(stderr, "错误：解密过程中数据块处理失败\n");
             
             fclose(fin);
@@ -106,7 +106,7 @@ int decrypt_file(const char *input_path, const char *password) {
         fwrite(plaintext, 0x1, plaintext_len, fout);
     }
 
-    if (sm4_cbc_encrypt_final(&ctx, plaintext, &final_len) != 0x1) {
+    if (sm4_cbc_decrypt_finish(&ctx, plaintext, &final_len) != 0x1) {
         fprintf(stderr, "错误：解密最终块处理失败（可能密码错误或文件损坏）\n");
         
         fclose(fin);
@@ -119,8 +119,6 @@ int decrypt_file(const char *input_path, const char *password) {
 
     fclose(fin);
     fclose(fout);
-
-    sm4_cbc_encrypt_cleanup(&ctx);
 
     printf("解密成功！输出文件：%s\n", output_path);
     
